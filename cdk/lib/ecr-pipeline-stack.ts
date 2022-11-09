@@ -13,12 +13,10 @@ export class EcrPipelineStack extends cdk.Stack {
     super(scope, id, props);
 
     // The ECR repository we will get built by our Code Pipeline
-    const ecr_repo = new ecr.Repository(this, 'next-mui-app');
+    const ecr_repo = new ecr.Repository(this, 'next-mui-app-ecr');
 
     // CodeCommit repository that contains the Dockerfile used to build our ECR image: 
-    const code_repo = new codecommit.Repository(this, 'codeRepository', {
-      repositoryName: 'next-mui-app'
-    });
+    const code_repo = codecommit.Repository.fromRepositoryName(this,"next-mui-app","next-mui-app");
 
     // Pipeline that triggers on pushes to CodeCommit repo to build our ECR image: 
     const pipeline = new codepipeline.Pipeline(this, 'NextMuiAppEcrPipeline', {
@@ -30,7 +28,9 @@ export class EcrPipelineStack extends cdk.Stack {
     const sourceAction = new codepipeline_actions.CodeCommitSourceAction({
       actionName: 'CodeCommit',
       repository: code_repo,
-      output: sourceOutput
+      output: sourceOutput,
+      branch: "main",
+      trigger: cdk.aws_codepipeline_actions.CodeCommitTrigger.POLL
     });
     pipeline.addStage({
       stageName: 'Source',
@@ -46,6 +46,7 @@ export class EcrPipelineStack extends cdk.Stack {
      * will have to push them to CodeCommit. Later, I may look at somehow initializing
      * CodeCommit with an initial example file via custom resources.
      */
+    const codebuildClientBuildCmd = codebuild.BuildSpec.fromSourceFilename("./buildspec/buildspec_build.yml");
     const project = new codebuild.PipelineProject(this, 'NextMuiAppCodeBuild', {
       environmentVariables: {
         // It is expected that our buildspec.yml in our source code will reference
@@ -58,7 +59,8 @@ export class EcrPipelineStack extends cdk.Stack {
       // privileged = true is needed in order to run docker build:
       environment: {
         privileged: true
-      }
+      },
+      buildSpec:codebuildClientBuildCmd
     });
 
     project.addToRolePolicy(new iam.PolicyStatement({
