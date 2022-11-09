@@ -4,7 +4,7 @@ phases:
     runtime-versions:
       nodejs: 16
       commands:
-        - cd ${CODEBUILD_SRC_DIR}/client
+        - "cd ${CODEBUILD_SRC_DIR}/client"
   
   artifacts:
     files:
