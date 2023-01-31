@@ -1,20 +1,20 @@
-"use client";
+'use client'
 
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState } from 'react'
 
 export interface IAuthContext {
-  isAutherized: boolean;
-  setIsAutherized: (value: boolean) => void;
+  isAutherized: boolean
+  setIsAutherized: (value: boolean) => void
 }
 
-export const AuthContext = createContext<IAuthContext>(null!);
+export const AuthContext = createContext<IAuthContext>(null!)
 
 interface AuthProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [isAutherized, setIsAutherized] = useState(false);
+  const [isAutherized, setIsAutherized] = useState(false)
 
   return (
     <AuthContext.Provider
@@ -25,5 +25,5 @@ export function AuthProvider({ children }: AuthProviderProps) {
     >
       {children}
     </AuthContext.Provider>
-  );
+  )
 }

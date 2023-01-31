@@ -1,64 +1,54 @@
-"use client";
-import useAuthContext from "@/hooks/useAuthContext";
-import { CareerItem, SkillCategoryType, SkillItem } from "@/types/type";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
-import "dayjs/locale/ja";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import axios from "axios";
-import dayjs from "dayjs";
-import { useReducer } from "react";
+'use client'
+import useAuthContext from '@/hooks/useAuthContext'
+import { CareerItem, SkillCategoryType, SkillItem } from '@/types/type'
+import { Box, Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import 'dayjs/locale/ja'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import axios from 'axios'
+import dayjs from 'dayjs'
+import { useReducer } from 'react'
 
 export default function Page() {
-  const { isAutherized } = useAuthContext();
+  const { isAutherized } = useAuthContext()
 
   const [skillEvent, updateSkillEvent] = useReducer(
     (prev: SkillItem, next: SkillItem) => {
-      return { ...prev, ...next };
+      return { ...prev, ...next }
     },
-    { category: SkillCategoryType.FrontEnd, level: 0, name: "" }
-  );
+    { category: SkillCategoryType.FrontEnd, level: 0, name: '' },
+  )
   const [careerEvent, updateCareerEvent] = useReducer(
     (prev: CareerItem, next: CareerItem) => {
-      return { ...prev, ...next };
+      return { ...prev, ...next }
     },
     {
       startDate: new Date(),
       endDate: new Date(),
-      title: "",
-      subtitle: "",
-      description: "",
-    }
-  );
+      title: '',
+      subtitle: '',
+      description: '',
+    },
+  )
 
   const postSkill = async () => {
-    await axios.post(`/api/skill`, skillEvent);
+    await axios.post(`/api/skill`, skillEvent)
     updateSkillEvent({
       category: SkillCategoryType.FrontEnd,
       level: 2,
-      name: "",
-    });
-  };
+      name: '',
+    })
+  }
   const postCareer = async () => {
-    await axios.post(`/api/career`, careerEvent);
+    await axios.post(`/api/career`, careerEvent)
     updateCareerEvent({
       startDate: new Date(),
       endDate: new Date(),
-      title: "",
-      subtitle: "",
-      description: "",
-    });
-  };
+      title: '',
+      subtitle: '',
+      description: '',
+    })
+  }
   return (
     <>
       {isAutherized ? (
@@ -66,14 +56,12 @@ export default function Page() {
           <Card>
             <CardContent>
               <FormControl>
-                <InputLabel id="demo-simple-select-label">
-                  SkillCategory
-                </InputLabel>
+                <InputLabel id='demo-simple-select-label'>SkillCategory</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
                   value={skillEvent.category}
-                  label="Age"
+                  label='Age'
                   onChange={(event) =>
                     updateSkillEvent({
                       category: event.target.value as SkillCategoryType,
@@ -82,20 +70,18 @@ export default function Page() {
                     })
                   }
                 >
-                  <MenuItem value={SkillCategoryType.FrontEnd}>
-                    FrontEnd
-                  </MenuItem>
+                  <MenuItem value={SkillCategoryType.FrontEnd}>FrontEnd</MenuItem>
                   <MenuItem value={SkillCategoryType.BackEnd}>BackEnd</MenuItem>
                   <MenuItem value={SkillCategoryType.DevOps}>DevOps</MenuItem>
                 </Select>
               </FormControl>
               <FormControl sx={{ marginLeft: 5 }}>
-                <InputLabel id="demo-simple-select-label">Level</InputLabel>
+                <InputLabel id='demo-simple-select-label'>Level</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
                   value={skillEvent.level}
-                  label="Age"
+                  label='Age'
                   onChange={(event) =>
                     updateSkillEvent({
                       category: skillEvent.category,
@@ -119,31 +105,24 @@ export default function Page() {
                     name: event.target.value,
                   })
                 }
-                label="Name"
+                label='Name'
                 sx={{ marginLeft: 5 }}
               >
                 name
               </TextField>
-              <Button
-                onClick={postSkill}
-                variant="contained"
-                sx={{ marginLeft: 5 }}
-              >
+              <Button onClick={postSkill} variant='contained' sx={{ marginLeft: 5 }}>
                 Submit
               </Button>
             </CardContent>
           </Card>
           <Card>
             <CardContent>
-              <LocalizationProvider
-                dateAdapter={AdapterDayjs}
-                adapterLocale={"ja"}
-              >
+              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'ja'}>
                 <DatePicker
-                  views={["year", "month"]}
-                  label="Year and Month"
-                  minDate={dayjs("2012-03-01")}
-                  maxDate={dayjs("2023-06-01")}
+                  views={['year', 'month']}
+                  label='Year and Month'
+                  minDate={dayjs('2012-03-01')}
+                  maxDate={dayjs('2023-06-01')}
                   value={careerEvent.startDate}
                   onChange={(newValue) =>
                     updateCareerEvent({
@@ -151,15 +130,13 @@ export default function Page() {
                       startDate: newValue?.toDate() ?? new Date(),
                     })
                   }
-                  renderInput={(params) => (
-                    <TextField {...params} helperText={null} />
-                  )}
+                  renderInput={(params) => <TextField {...params} helperText={null} />}
                 />
                 <DatePicker
-                  views={["year", "month"]}
-                  label="Year and Month"
-                  minDate={dayjs("2012-03-01")}
-                  maxDate={dayjs("2023-06-01")}
+                  views={['year', 'month']}
+                  label='Year and Month'
+                  minDate={dayjs('2012-03-01')}
+                  maxDate={dayjs('2023-06-01')}
                   value={careerEvent.endDate}
                   onChange={(newValue) =>
                     updateCareerEvent({
@@ -167,9 +144,7 @@ export default function Page() {
                       endDate: newValue?.toDate() ?? new Date(),
                     })
                   }
-                  renderInput={(params) => (
-                    <TextField {...params} helperText={null} />
-                  )}
+                  renderInput={(params) => <TextField {...params} helperText={null} />}
                 />
               </LocalizationProvider>
               <TextField
@@ -180,7 +155,7 @@ export default function Page() {
                     title: event.target.value,
                   })
                 }
-                label="Title"
+                label='Title'
               />
               <TextField
                 value={careerEvent.subtitle}
@@ -190,7 +165,7 @@ export default function Page() {
                     subtitle: event.target.value,
                   })
                 }
-                label="Subtitle"
+                label='Subtitle'
                 sx={{ marginLeft: 5 }}
               />
               <TextField
@@ -201,14 +176,10 @@ export default function Page() {
                     description: event.target.value,
                   })
                 }
-                label="Description"
+                label='Description'
                 sx={{ marginLeft: 5 }}
               />
-              <Button
-                onClick={postCareer}
-                variant="contained"
-                sx={{ marginLeft: 5 }}
-              >
+              <Button onClick={postCareer} variant='contained' sx={{ marginLeft: 5 }}>
                 Submit
               </Button>
             </CardContent>
@@ -218,5 +189,5 @@ export default function Page() {
         <Box>Not Authorized</Box>
       )}
     </>
-  );
+  )
 }

@@ -1,27 +1,20 @@
-"use client";
-import { useCallback, useMemo } from "react";
-import type { Engine } from "tsparticles-engine";
-import {
-  DownArrow,
-  ScrollBox,
-  TopBox,
-  TopMenuCard,
-  TopMenuCardContent,
-  TopMenuParticles,
-} from "../styles/top";
-import { loadFull } from "tsparticles";
-import { Box, CardContent } from "@mui/material";
-import { Link as Scroll, Element } from "react-scroll";
+'use client'
+import { useCallback, useMemo } from 'react'
+import type { Engine } from 'tsparticles-engine'
+import { DownArrow, ScrollBox, TopBox, TopMenuCard, TopMenuCardContent, TopMenuParticles } from '../styles/top'
+import { loadFull } from 'tsparticles'
+import { Box, CardContent } from '@mui/material'
+import { Link as Scroll, Element } from 'react-scroll'
 
 interface TopProps {
-  name: string;
-  nextPageName: string;
+  name: string
+  nextPageName: string
 }
 
 export const Top = (props: TopProps) => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
-  }, []);
+    await loadFull(engine)
+  }, [])
 
   return useMemo(() => {
     return (
@@ -34,23 +27,18 @@ export const Top = (props: TopProps) => {
             </TopMenuCardContent>
           </TopMenuCard>
           <ScrollBox>
-            <Scroll
-              to={props.nextPageName}
-              duration={600}
-              smooth={true}
-              offset={-34}
-            >
+            <Scroll to={props.nextPageName} duration={600} smooth={true} offset={-34}>
               Scroll
               <DownArrow />
             </Scroll>
           </ScrollBox>
           <TopMenuParticles
-            id="tsparticles"
+            id='tsparticles'
             init={particlesInit}
             options={{
               background: {
                 color: {
-                  value: "#3D5A73",
+                  value: '#3D5A73',
                 },
               },
               fpsLimit: 30,
@@ -58,11 +46,11 @@ export const Top = (props: TopProps) => {
                 events: {
                   onClick: {
                     enable: true,
-                    mode: "push",
+                    mode: 'push',
                   },
                   onHover: {
                     enable: true,
-                    mode: "repulse",
+                    mode: 'repulse',
                   },
                   resize: true,
                 },
@@ -72,20 +60,20 @@ export const Top = (props: TopProps) => {
                   enable: false,
                 },
                 color: {
-                  value: "#ffffff",
+                  value: '#ffffff',
                 },
                 links: {
-                  color: "#ffffff",
+                  color: '#ffffff',
                   distance: 150,
                   enable: true,
                   opacity: 0.5,
                   width: 1,
                 },
                 move: {
-                  direction: "none",
+                  direction: 'none',
                   enable: true,
                   outModes: {
-                    default: "out",
+                    default: 'out',
                   },
                   random: false,
                   speed: 2,
@@ -102,7 +90,7 @@ export const Top = (props: TopProps) => {
                   value: 0.5,
                 },
                 shape: {
-                  type: "star",
+                  type: 'star',
                 },
                 size: {
                   value: { min: 1, max: 5 },
@@ -113,6 +101,6 @@ export const Top = (props: TopProps) => {
           />
         </TopBox>
       </Element>
-    );
-  }, []);
-};
+    )
+  }, [])
+}

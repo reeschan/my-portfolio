@@ -1,10 +1,6 @@
-import { AuthProvider } from "./Context/authProvider";
+import { AuthProvider } from './Context/authProvider'
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head />
@@ -12,5 +8,5 @@ export default function RootLayout({
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
-  );
+  )
 }

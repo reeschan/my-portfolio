@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         TableName: CAREER_TABLE,
       };
 
-      if (process.env.RUN_LOCAL === "true") {
+      try{
         const scanResult = (await dynamo.scan(paramsOfScanDynamo).promise())
         ?.Items as CareerItem[];
       
@@ -56,10 +56,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       } else {
         res.json(scanResult);
       }
-      } else {
+      }catch(err){
         res.json(mockCareers);
       }
-
 
     case "POST":
       const { startDate, endDate, title, subtitle, description }: CareerItem =
