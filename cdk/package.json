@@ -12,7 +12,8 @@
     "synth": "cdk synth",
     "deploy": "cdk deploy",
     "deploy:pipeline": "cdk deploy ecr-pipeline-stack",
-    "deploy:apprunner": "cdk deploy apprunner-stack"
+    "deploy:apprunner": "cdk deploy apprunner-stack",
+    "deploy:dynamodb": "cdk deploy dynamodb-stack"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",

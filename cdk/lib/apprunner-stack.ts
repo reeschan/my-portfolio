@@ -35,6 +35,7 @@ export class AppRunner extends Construct {
     })
 
     new apprunner.Service(scope, 'MyPortfolioService', {
+      serviceName: 'MyPortfolioApp',
       source: apprunner.Source.fromEcr({
         imageConfiguration: {
           port: 3000

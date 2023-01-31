@@ -1,7 +1,7 @@
 import { SkillItem,SkillCategoryType} from "@/types/type";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const skill = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   switch (method) {
     case 'GET':
@@ -26,5 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break;
   }
 
- }
+}
+ 
+export default skill
 
