@@ -26,17 +26,13 @@ const skill = async (req: NextApiRequest, res: NextApiResponse) => {
       const paramsOfScanDynamo: DynamoDB.DocumentClient.ScanInput = {
         TableName: SKILL_TABLE,
       };
-      if (process.env.RUN_LOCAL === "true") {
-        const scanResult = (await dynamo.scan(paramsOfScanDynamo).promise())
-          ?.Items as SkillItem[];
+      const scanResult = (await dynamo.scan(paramsOfScanDynamo).promise())
+        ?.Items as SkillItem[];
 
-        if (scanResult?.length === 0) {
-          res.json(mockSkills);
-        } else {
-          res.json(scanResult);
-        }
-      } else {
+      if (scanResult?.length === 0) {
         res.json(mockSkills);
+      } else {
+        res.json(scanResult);
       }
 
     case "POST":

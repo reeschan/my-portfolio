@@ -16,7 +16,7 @@ export class DynamoDbStack extends Stack {
 
     new DynamoDB.Table(this, "my-portfolio-career", {
       tableName: "my-portfolio-career",
-      partitionKey: { name: 'name', type: DynamoDB.AttributeType.STRING },
+      partitionKey: { name: 'title', type: DynamoDB.AttributeType.STRING },
       billingMode: DynamoDB.BillingMode.PAY_PER_REQUEST,
       removalPolicy: RemovalPolicy.RETAIN,
     })
