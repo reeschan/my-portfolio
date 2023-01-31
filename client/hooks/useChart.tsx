@@ -27,13 +27,13 @@ export default function useChart() {
         <RadarChart
           title="test"
           cx={200}
-          cy={200}
+          cy={150}
           data={data}
-          margin={{ top: 5, right: 50, bottom: 5, left: 50 }}
+          margin={{ top: 30, right: 50, bottom: 30, left: 50 }}
         >
           <text
             x={400 / 2}
-            y={20}
+            y={10}
             fill="#333"
             textAnchor="middle"
             dominantBaseline="central"

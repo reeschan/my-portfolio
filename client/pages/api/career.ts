@@ -32,7 +32,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           endDate: new Date(),
           title: "",
           subtitle: "",
-          description: "thirdCareer",
+          description: "thirdCfdafafdafdafefaefvafafdfadvceazdvareer",
+        },{
+          startDate: new Date(),
+          endDate: new Date(),
+          title: "",
+          subtitle: "",
+          description: "thiddrdCareer",
         },
       ];
 
@@ -40,13 +46,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         TableName: CAREER_TABLE,
       };
 
-      const scanResult = (await dynamo.scan(paramsOfScanDynamo).promise())
+      if (process.env.RUN_LOCAL === "true") {
+        const scanResult = (await dynamo.scan(paramsOfScanDynamo).promise())
         ?.Items as CareerItem[];
+      
+        console.log(scanResult)
       if (scanResult?.length === 0) {
         res.json(mockCareers);
       } else {
         res.json(scanResult);
       }
+      } else {
+        res.json(mockCareers);
+      }
+
 
     case "POST":
       const { startDate, endDate, title, subtitle, description }: CareerItem =

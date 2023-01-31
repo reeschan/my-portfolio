@@ -1,12 +1,25 @@
 import styled from "@emotion/styled";
-import { AppBar, Button } from "@mui/material";
+import { AppBar, Box, Button } from "@mui/material";
+
+export const PortfolioAppBarBox = styled(Box)(() => ({
+  flexGrow: 1
+}))
 
 export const PortfolioAppBar = styled(AppBar)(() => ({
-  alignItems:"flex-end"
+  backgroundColor: "#838a8bb3",
+}));
+
+export const LogoImageBox = styled(Box)(() => ({
+  flexGrow:1
 }))
 
 export const HeaderContentButton = styled(Button)(() => ({
-  marginLeft: 20,
-  marginRight: 20,
+  marginLeft: 30,
+  marginRight: 30,
   color: "white",
-}))
+  "& :hover": {
+    textShadow:
+      "-6px 0px 15px rgba(255, 255, 240, 0.83), 6px 0px 15px rgba(255, 255, 240, 0.83)",
+    transition: ".4s",
+  },
+}));

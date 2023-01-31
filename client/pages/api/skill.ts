@@ -16,6 +16,9 @@ const skill = async (req: NextApiRequest, res: NextApiResponse) => {
         { name: "Typescript1", category: SkillCategoryType.FrontEnd, level: 5 },
         { name: "Typescript2", category: SkillCategoryType.FrontEnd, level: 5 },
         { name: "Typescript3", category: SkillCategoryType.FrontEnd, level: 5 },
+        { name: "Typescript4", category: SkillCategoryType.FrontEnd, level: 5 },
+        { name: "Typescript5", category: SkillCategoryType.FrontEnd, level: 5 },
+        { name: "Typescript6", category: SkillCategoryType.FrontEnd, level: 5 },
         { name: "Cd#", category: SkillCategoryType.BackEnd, level: 5 },
         { name: "C#", category: SkillCategoryType.BackEnd, level: 5 },
         { name: "Ce#", category: SkillCategoryType.BackEnd, level: 5 },
@@ -26,14 +29,20 @@ const skill = async (req: NextApiRequest, res: NextApiResponse) => {
       const paramsOfScanDynamo: DynamoDB.DocumentClient.ScanInput = {
         TableName: SKILL_TABLE,
       };
-      const scanResult = (await dynamo.scan(paramsOfScanDynamo).promise())
-        ?.Items as SkillItem[];
 
-      if (scanResult?.length === 0) {
-        res.json(mockSkills);
+      if (process.env.RUN_LOCAL === "true") {
+        const scanResult = (await dynamo.scan(paramsOfScanDynamo).promise())
+        ?.Items as SkillItem[];
+      
+      console.log(scanResult)
+        if (scanResult?.length === 0) {
+          res.json(mockSkills);
+        } else {
+          res.json(scanResult);
+        }
       } else {
-        res.json(scanResult);
-      }
+        res.json(mockSkills);
+       }
 
     case "POST":
       const { name, category, level }: SkillItem = req.body;

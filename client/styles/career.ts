@@ -6,7 +6,7 @@ export const CareerBox = styled(Box)(() => ({
   margin: "auto",
   display: "flex",
   width: "100%",
-  height: "100vh",
+  minHeight: "100vh",
 }))
 
 export const CareerContentBox = styled(Box)(() => ({
@@ -20,7 +20,10 @@ export const CareerContentBox = styled(Box)(() => ({
   textAlign: "center",
   padding: "20px",
   borderRadius: "5px",
-  width:"80%"
+  width: "80%",
+  "& .vertical-timeline::before": {
+    backgroundColor:"#eee"
+  }
 }))
 
 export const TopMenuCard = styled(Card)(() => ({

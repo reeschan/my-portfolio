@@ -31,6 +31,7 @@ export const ProfileImageBox = styled(Box)(() => ({
 export const SocialLinkBox = styled(Box)(() => ({
   display: "flex",
   textAlign: "center",
+  justifyContent:"center"
 }))
 export const SocialIconButtonBox = styled(Box)(() => ({
   width: 50,

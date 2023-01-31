@@ -1,8 +1,14 @@
 "use client";
-import { Box, Toolbar } from "@mui/material";
+import { Box, Toolbar, Typography } from "@mui/material";
 
 import { Link as Scroll } from "react-scroll";
-import { HeaderContentButton, PortfolioAppBar } from "../styles/header";
+import {
+  HeaderContentButton,
+  LogoImageBox,
+  PortfolioAppBar,
+  PortfolioAppBarBox,
+} from "../styles/header";
+import Image from "next/image";
 
 interface HeaderProps {
   navItems: string[];
@@ -10,9 +16,17 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => {
   return (
-    <PortfolioAppBar>
-      <Toolbar>
-        <Box sx={{ display: "flex" }}>
+    <PortfolioAppBarBox>
+      <PortfolioAppBar>
+        <Toolbar>
+          <LogoImageBox>
+            <Image
+              src="/portfolio_logo.png"
+              width={80}
+              height={50}
+              alt={""}
+            ></Image>
+          </LogoImageBox>
           {props.navItems.map((item) => (
             <HeaderContentButton>
               <Scroll
@@ -26,8 +40,8 @@ export const Header = (props: HeaderProps) => {
               </Scroll>
             </HeaderContentButton>
           ))}
-        </Box>
-      </Toolbar>
-    </PortfolioAppBar>
+        </Toolbar>
+      </PortfolioAppBar>
+    </PortfolioAppBarBox>
   );
 };
