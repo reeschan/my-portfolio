@@ -13,14 +13,16 @@ export class EcrPipelineStack extends cdk.Stack {
     super(scope, id, props);
 
     // The ECR repository we will get built by our Code Pipeline
-    const ecr_repo = new ecr.Repository(this, 'next-mui-app-ecr');
+    const ecr_repo = new ecr.Repository(this, 'my-portfolio-app-ecr', {
+      repositoryName:'my-portfolio-app-ecr'
+    });
 
     // CodeCommit repository that contains the Dockerfile used to build our ECR image: 
-    const code_repo = codecommit.Repository.fromRepositoryName(this,"next-mui-app","next-mui-app");
+    const code_repo = codecommit.Repository.fromRepositoryName(this,"my-portfolio-app","my-portfolio-app");
 
     // Pipeline that triggers on pushes to CodeCommit repo to build our ECR image: 
-    const pipeline = new codepipeline.Pipeline(this, 'NextMuiAppEcrPipeline', {
-      pipelineName: 'NextMuiAppEcrPipeline'
+    const pipeline = new codepipeline.Pipeline(this, 'MyPortfolioAppEcrPipeline', {
+      pipelineName: 'MyPortFolioAppEcrPipeline'
     });
 
     // Configure our pipeline to pull in our Code Commit repo as the pipeline source: 
@@ -39,15 +41,9 @@ export class EcrPipelineStack extends cdk.Stack {
     
     /**
      * Create a CodeBuild project to build a Dockerfile into an image and push it to ECR.
-     * 
-     * Note - In order for the project to actually do this, the source code pushed
-     * to the CodeCommit repo needs to have a properly defined buildspec.yml and
-     * Dockerfile. At this time, example files are in my GitHub project, but you
-     * will have to push them to CodeCommit. Later, I may look at somehow initializing
-     * CodeCommit with an initial example file via custom resources.
      */
     const codebuildClientBuildCmd = codebuild.BuildSpec.fromSourceFilename("./buildspec/buildspec_build.yml");
-    const project = new codebuild.PipelineProject(this, 'NextMuiAppCodeBuild', {
+    const project = new codebuild.PipelineProject(this, 'MyPortfolioAppCodeBuild', {
       environmentVariables: {
         // It is expected that our buildspec.yml in our source code will reference
         // this environment variable to determine which ECR repo to push the built image. 
@@ -65,7 +61,7 @@ export class EcrPipelineStack extends cdk.Stack {
 
     project.addToRolePolicy(new iam.PolicyStatement({
       resources: [ecr_repo.repositoryArn],
-      actions: ['ecr:*'],         // This could be further scoped down...
+      actions: ['ecr:*'],
       effect: iam.Effect.ALLOW
     }));
 

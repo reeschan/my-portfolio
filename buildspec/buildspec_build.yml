@@ -6,9 +6,9 @@ phases:
       - cd ${CODEBUILD_SRC_DIR}/client
   build:
     commands:
-      - docker build -t next-mui-app-ecr:latest .
+      - docker build -t my-portfolio-app-ecr:latest .
   post_build:
     commands:
       - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 037063970487.dkr.ecr.ap-northeast-1.amazonaws.com
-      - docker tag next-mui-app-ecr:latest 037063970487.dkr.ecr.ap-northeast-1.amazonaws.com/next-mui-app-ecr:latest
-      - docker push 037063970487.dkr.ecr.ap-northeast-1.amazonaws.com/next-mui-app-ecr:latest
+      - docker tag my-portfolio-app-ecr:latest 037063970487.dkr.ecr.ap-northeast-1.amazonaws.com/my-portfolio-app-ecr:latest
+      - docker push 037063970487.dkr.ecr.ap-northeast-1.amazonaws.com/my-portfolio-app-ecr:latest

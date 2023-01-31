@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { CdkStack } from '../lib/cdk-stack';
 import { EcrPipelineStack } from '../lib/ecr-pipeline-stack';
+import { AppRunnerStack } from '../lib/apprunner-stack';
 
 const app = new cdk.App();
 
@@ -14,6 +14,14 @@ const synthesizeProps = {
 }
 
 new EcrPipelineStack(app, "ecr-pipeline-stack", {
+  synthesizer: new cdk.CliCredentialsStackSynthesizer(synthesizeProps),
+  env: {
+    region: region,
+    account:accountId
+  }
+})
+
+new AppRunnerStack(app, "apprunner-stack", {
   synthesizer: new cdk.CliCredentialsStackSynthesizer(synthesizeProps),
   env: {
     region: region,
