@@ -8,7 +8,7 @@ import { DynamoDbStack } from '../lib/dynamodb-stack';
 const app = new cdk.App();
 
 const region = "ap-northeast-1";
-const accountId = "037063970487"
+const accountId = "your_account_id"
 
 const synthesizeProps = {
   fileAssetsBucketName:"next-mui-app-work-dev"
