@@ -12,7 +12,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
+import "dayjs/locale/ja";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useReducer } from "react";
@@ -133,38 +135,43 @@ export default function Page() {
           </Card>
           <Card>
             <CardContent>
-              <DatePicker
-                views={["year", "month"]}
-                label="Year and Month"
-                minDate={dayjs("2012-03-01")}
-                maxDate={dayjs("2023-06-01")}
-                value={careerEvent.startDate}
-                onChange={(newValue) =>
-                  updateCareerEvent({
-                    ...careerEvent,
-                    startDate: newValue?.toDate() ?? new Date(),
-                  })
-                }
-                renderInput={(params) => (
-                  <TextField {...params} helperText={null} />
-                )}
-              />
-              <DatePicker
-                views={["year", "month"]}
-                label="Year and Month"
-                minDate={dayjs("2012-03-01")}
-                maxDate={dayjs("2023-06-01")}
-                value={careerEvent.endDate}
-                onChange={(newValue) =>
-                  updateCareerEvent({
-                    ...careerEvent,
-                    endDate: newValue?.toDate() ?? new Date(),
-                  })
-                }
-                renderInput={(params) => (
-                  <TextField {...params} helperText={null} />
-                )}
-              />
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={"ja"}
+              >
+                <DatePicker
+                  views={["year", "month"]}
+                  label="Year and Month"
+                  minDate={dayjs("2012-03-01")}
+                  maxDate={dayjs("2023-06-01")}
+                  value={careerEvent.startDate}
+                  onChange={(newValue) =>
+                    updateCareerEvent({
+                      ...careerEvent,
+                      startDate: newValue?.toDate() ?? new Date(),
+                    })
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} helperText={null} />
+                  )}
+                />
+                <DatePicker
+                  views={["year", "month"]}
+                  label="Year and Month"
+                  minDate={dayjs("2012-03-01")}
+                  maxDate={dayjs("2023-06-01")}
+                  value={careerEvent.endDate}
+                  onChange={(newValue) =>
+                    updateCareerEvent({
+                      ...careerEvent,
+                      endDate: newValue?.toDate() ?? new Date(),
+                    })
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} helperText={null} />
+                  )}
+                />
+              </LocalizationProvider>
               <TextField
                 value={careerEvent.title}
                 onChange={(event) =>
