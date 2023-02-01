@@ -25,7 +25,7 @@ export const TopMenuCardContent = styled(CardContent)(() => ({
   verticalAlign: "middle",
 }))
 
-export const TopMenuParticles = styled(Particles)(() => ({
+export const PageParticles = styled(Particles)(() => ({
   position: "absolute",
   width: "100vh",
   height: "100vh",

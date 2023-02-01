@@ -4,6 +4,7 @@ import { Profile } from './profile'
 import { Skill } from './skill'
 import { Top } from './top'
 import style from '../styles/page.module.css'
+import { Particles } from './particles'
 
 const topPageName = 'Top'
 const profilePageName = 'Profile'
@@ -11,9 +12,10 @@ const careerPageName = 'Career'
 const skillPageName = 'Skill'
 const navItems = [topPageName, profilePageName, careerPageName, skillPageName]
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className={style.AppBox}>
+      <Particles />
       <Header navItems={navItems}></Header>
       <Top name={topPageName.toLowerCase()} nextPageName={profilePageName.toLowerCase()} />
       <Profile name={profilePageName.toLowerCase()} />

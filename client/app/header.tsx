@@ -18,7 +18,7 @@ export const Header = (props: HeaderProps) => {
             <Image src='/portfolio_logo.png' width={80} height={50} alt={''}></Image>
           </LogoImageBox>
           {props.navItems.map((item) => (
-            <HeaderContentButton>
+            <HeaderContentButton key={item}>
               <Scroll to={item.toLowerCase()} key={item} duration={600} smooth={true} offset={-34}>
                 {item}
               </Scroll>
